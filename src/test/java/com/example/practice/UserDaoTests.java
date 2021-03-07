@@ -9,6 +9,7 @@ import static org.hamcrest.core.Is.is;
 
 public class UserDaoTests {
 
+    //id를 사용하여 id, username, password정보 가져오기
     @Test
     public void get() throws SQLException, ClassNotFoundException {
         UserDao userDao = new UserDao();
