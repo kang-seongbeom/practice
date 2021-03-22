@@ -5,21 +5,90 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
 
 public class UserDaoTests {
 
+    String name = "ksb";
+    String password = "123456789";
+
+    //제주
+
     //id를 사용하여 id, username, password정보 가져오기
     @Test
     public void get() throws SQLException, ClassNotFoundException {
-        UserDao userDao = new UserDao();
+        DaoFactory daoFactory = new DaoFactory();
+        UserDao userDao = daoFactory.getUserDao();
         Integer id = 1;
-        String name = "hulk";
-        String password = "1234";
 
         User user = userDao.get(id);
         assertThat(user.getId(),is(id));
         assertThat(user.getName(),is(name));
         assertThat(user.getPassword(),is(password));
     }
+
+    //get으로 하니깐, 내가 일일이 db에 유저 정보를 입력해 주어야 해서 너무 불편하다.
+    //user와 password 정보를 받아 올 테니깐 db에 알아서 저장시켜 줘.
+    @Test
+    public void insert() throws SQLException, ClassNotFoundException {
+        //front에서 user 정보를 받아 오는 부분
+        User user = new User();
+        user.setName(name);
+        user.setPassword(password);
+
+        //받아온 user 정보를 dao를 통해 db에 저장
+        DaoFactory daoFactory = new DaoFactory();
+        UserDao userDao = daoFactory.getUserDao();
+
+        userDao.insert(user);
+
+        //db에 저장된 유저 id가 0보다 큰지 확인
+        //assertThat(user.getId(), greaterThan(0));
+
+        //입력 정보가 맞는지 확인
+        User insertedUser = userDao.get(user.getId());
+        assertThat(insertedUser.getName(), is(name));
+        assertThat(insertedUser.getPassword(), is(password));
+
+    }
+
+    //한라
+
+//    //id를 사용하여 id, username, password정보 가져오기
+//    @Test
+//    public void getHalla() throws SQLException, ClassNotFoundException {
+//        ConnectionMaker connectionMaker = new HallaConnectionMaker();
+//        UserDao userDao = new UserDao(connectionMaker);
+//        Integer id = 1;
+//
+//        User user = userDao.get(id);
+//        assertThat(user.getId(),is(id));
+//        assertThat(user.getName(),is(name));
+//        assertThat(user.getPassword(),is(password));
+//    }
+//
+//    //get으로 하니깐, 내가 일일이 db에 유저 정보를 입력해 주어야 해서 너무 불편하다.
+//    //user와 password 정보를 받아 올 테니깐 db에 알아서 저장시켜 줘.
+//    @Test
+//    public void insertHalla() throws SQLException, ClassNotFoundException {
+//        //front에서 user 정보를 받아 오는 부분
+//        User user = new User();
+//        user.setName(name);
+//        user.setPassword(password);
+//
+//        //받아온 user 정보를 dao를 통해 db에 저장
+//        ConnectionMaker connectionMaker = new HallaConnectionMaker();
+//        UserDao userDao = new UserDao(connectionMaker);
+//        userDao.insert(user);
+//
+//        //db에 저장된 유저 id가 0보다 큰지 확인
+//        //assertThat(user.getId(), greaterThan(0));
+//
+//        //입력 정보가 맞는지 확인
+//        User insertedUser = userDao.get(user.getId());
+//        assertThat(insertedUser.getName(), is(name));
+//        assertThat(insertedUser.getPassword(), is(password));
+//
+//    }
 }
