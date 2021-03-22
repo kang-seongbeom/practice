@@ -44,10 +44,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.5.2'
 
-    // https://mvnrepository.com/artifact/org.springframework/spring-core
-    implementation group: 'org.springframework', name: 'spring-core', version: '5.2.5.RELEASE'
-    // https://mvnrepository.com/artifact/org.springframework/spring-context
-    implementation group: 'org.springframework', name: 'spring-context', version: '5.2.5.RELEASE'
+    // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
+    implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.2.5.RELEASE'
+
+
 
 
 }
