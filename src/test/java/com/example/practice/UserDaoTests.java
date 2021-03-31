@@ -30,10 +30,7 @@ public class UserDaoTests {
     //id를 사용하여 id, username, password정보 가져오기
     @Test
     public void get() throws SQLException, ClassNotFoundException {
-
-
         Integer id = 1;
-
         User user = userDao.get(id);
         assertThat(user.getId(),is(id));
         assertThat(user.getName(),is(name));
@@ -50,18 +47,15 @@ public class UserDaoTests {
         user.setPassword(password);
 
         //받아온 user 정보를 dao를 통해 db에 저장
-
-
         userDao.insert(user);
 
         //db에 저장된 유저 id가 0보다 큰지 확인
-        //assertThat(user.getId(), greaterThan(0));
+        assertThat(user.getId(), greaterThan(0));
 
         //입력 정보가 맞는지 확인
         User insertedUser = userDao.get(user.getId());
         assertThat(insertedUser.getName(), is(name));
         assertThat(insertedUser.getPassword(), is(password));
-
     }
 
     //수정
@@ -71,9 +65,8 @@ public class UserDaoTests {
         user.setName(name);
         user.setPassword(password);
         userDao.insert(user);
-
-        String updateName="kan";
-        String updatePassword="1234";
+        String updateName= "kin";
+        String updatePassword= "1234";
         user.setName(updateName);
         user.setPassword(updatePassword);
 
